@@ -16,8 +16,7 @@ namespace dotnet_rpg_2.Controllers
             new Character { Name = "Sam"}
         };
 
-        [HttpGet]
-        [Route("GetAll")]
+        [HttpGet("GetAll")]
         public ActionResult<List<Character>> Get()
         {
             return Ok(characters);
