@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnet_rpg_2.Models;
+using dotnet_rpg_2.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_rpg_2.Controllers
@@ -11,25 +12,26 @@ namespace dotnet_rpg_2.Controllers
     [Route("[controller]")]
     public class CharacterController : ControllerBase
     {
-        private static List<Character> characters = new List<Character>{
-            new Character(),
-            new Character { Id = 1, Name = "Sam"}
-        };
+        public ICharacterService _characterService { get; }
 
-        
+        public CharacterController(ICharacterService characterService)
+        {
+            _characterService = characterService;
+            
+        }
 
         // GET
 
         [HttpGet("GetAll")] // combined http attribute and route attribute
         public ActionResult<List<Character>> Get()
         {
-            return Ok(characters);
+            return Ok(_characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Character> GetSingle(int id)
         {
-            return Ok(characters.FirstOrDefault(c => c.Id == id));
+            return Ok(_characterService.GetCharacterById(id));
         }
 
         //POST
@@ -37,8 +39,8 @@ namespace dotnet_rpg_2.Controllers
         [HttpPost]
         public ActionResult<List<Character>> AddCharacter(Character newCharacter)
         {
-            characters.Add(newCharacter);
-            return Ok(characters);
+           return _characterService.AddCharacter(newCharacter);
+            
         }
     }
 }
