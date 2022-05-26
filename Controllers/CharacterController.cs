@@ -13,19 +13,30 @@ namespace dotnet_rpg_2.Controllers
     {
         private static List<Character> characters = new List<Character>{
             new Character(),
-            new Character { Name = "Sam"}
+            new Character { Id = 1, Name = "Sam"}
         };
 
-        [HttpGet("GetAll")]
+        // GET
+
+        [HttpGet("GetAll")] // combined http attribute and route attribute
         public ActionResult<List<Character>> Get()
         {
             return Ok(characters);
         }
 
-        [HttpGet]
-        public ActionResult<Character> GetSingle()
+        [HttpGet("{id}")]
+        public ActionResult<Character> GetSingle(int id)
         {
-            return Ok(characters[0]);
+            return Ok(characters.FirstOrDefault(c => c.Id == id));
+        }
+
+        //POST
+
+        [HttpPost]
+        public ActionResult<List<Character>> AddCharacter(Character newCharacter)
+        {
+            characters.Add(newCharacter);
+            return Ok(characters);
         }
     }
 }
