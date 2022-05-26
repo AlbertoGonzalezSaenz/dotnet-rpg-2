@@ -16,6 +16,8 @@ namespace dotnet_rpg_2.Controllers
             new Character { Id = 1, Name = "Sam"}
         };
 
+        
+
         // GET
 
         [HttpGet("GetAll")] // combined http attribute and route attribute
