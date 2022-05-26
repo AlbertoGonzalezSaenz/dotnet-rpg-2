@@ -23,13 +23,13 @@ namespace dotnet_rpg_2.Controllers
         // GET
 
         [HttpGet("GetAll")] // combined http attribute and route attribute
-        public async Task<ActionResult<List<Character>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle(int id)
         {
             return Ok(await _characterService.GetCharacterById(id));
         }
@@ -37,7 +37,7 @@ namespace dotnet_rpg_2.Controllers
         //POST
 
         [HttpPost]
-        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
+        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
         {
            return Ok(await _characterService.AddCharacter(newCharacter));
             
